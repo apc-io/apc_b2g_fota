@@ -2,7 +2,7 @@
 
 DOWNLOAD_DIR=/cache
 
-OTA_ZIP=$(find -name b2g_apc8950_ota_*.zip)
+OTA_ZIP=$(find -name apc8950_b2g_ota_*.zip)
 
 if [[ ! -f "$OTA_ZIP" ]]; then
   echo "No ota package found, please run create_ota.sh first!"

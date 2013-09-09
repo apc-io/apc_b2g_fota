@@ -7,8 +7,9 @@ fi
 
 SOURCE_BOOT_IMG=$B2G_HOME/out/target/product/wmid/boot.img
 KEYDIR=$B2G_HOME/build/target/product/security
+OTA_PREFIX=apc8950_b2g_ota
 OTA_SUFFIX=$(date +%Y%m%d.%H%M)
-OTA_ZIP=apc8950_b2g_ota_${OTA_SUFFIX}.zip
+OTA_ZIP=${OTA_PREFIX}_${OTA_SUFFIX}.zip
 
 if [[ ! -f "$SOURCE_BOOT_IMG" ]]; then
   echo "Warning: no source found for boot.img, try to use local boot.img."
@@ -21,7 +22,8 @@ if [[ ! -f "boot.img" ]]; then
   echo "Warning: boot.img not found, please place it in the top level directory and try again if you want a kernel update."
 fi
 
-rm update*.zip
+rm -f update*.zip
+rm -f ${OTA_PREFIX}_*.zip
 zip -r update.zip META-INF system boot.img
 java -Xmx2048m -jar signapk.jar -w $KEYDIR/testkey.x509.pem $KEYDIR/testkey.pk8 update.zip $OTA_ZIP
 
